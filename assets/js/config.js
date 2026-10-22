@@ -8,7 +8,7 @@
  *            ถ้าวางโมเดลไว้ในเว็บนี้เอง ให้แก้เป็น MODEL_BASE: 'scans/'
  */
 window.ROCK_CONFIG = {
-  API_URL: '',
+  API_URL: 'https://script.google.com/macros/s/AKfy.../exec',
   MODEL_BASE: 'https://apiwatpiw-a11y.github.io/rock-ar/scans/',
   MODEL_EXT: 'glb'
 };
