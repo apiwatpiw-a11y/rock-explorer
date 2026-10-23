@@ -780,7 +780,11 @@
     rd.onload = function () {
       var b64 = String(rd.result).split(',')[1] || '';
       wsLocal();
-      API.call('uploadWorksheetFile', { name: file.name, mime: mime, data: b64 }).then(function (d) { setMe(d); toast('แนบไฟล์ ' + file.name + ' แล้ว'); render(); }, function (e) { toast(e.message, true); render(); });
+      var typed = wsCollect();
+      API.call('uploadWorksheetFile', { name: file.name, mime: mime, data: b64 }).then(function () {
+        /* บันทึกคำตอบที่พิมพ์ไว้พร้อมกัน ไม่ให้หายเมื่อหน้าโหลดข้อมูลใหม่ */
+        return API.call('saveWorksheet', { answers: typed, submit: false });
+      }).then(function (d) { setMe(d); API.store.del('rockexplorer.ws.' + S.user.id); toast('แนบไฟล์ ' + file.name + ' แล้ว'); render(); }, function (e) { toast(e.message, true); render(); });
     };
     rd.onerror = function () { toast('อ่านไฟล์ไม่สำเร็จ', true); };
     rd.readAsDataURL(file);
